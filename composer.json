@@ -1,8 +1,15 @@
 {
     "name": "wodrow/yii2-wwtree",
     "description": "另一款分类树编辑管理工具",
+    "keywords": [
+        "树",
+        "tree",
+        "树管理",
+        "tree-manager"
+    ],
     "type": "composer-plugin",
     "require": {
+        "php": ">=5.4",
         "mootensai/yii2-jsblock": "dev-master",
         "kartik-v/yii2-widget-activeform": "^1.5@dev",
         "kartik-v/yii2-widget-select2": "^2.1@dev",
@@ -14,5 +21,11 @@
             "email": "wodrow451611cv@gmail.com"
         }
     ],
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "wodrow\\yii2wwtree\\": "src/"
+        }
+    }
 }
