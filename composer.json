@@ -1,0 +1,18 @@
+{
+    "name": "wodrow/yii2-wwtree",
+    "description": "另一款分类树编辑管理工具",
+    "type": "composer-plugin",
+    "require": {
+        "mootensai/yii2-jsblock": "dev-master",
+        "kartik-v/yii2-widget-activeform": "^1.5@dev",
+        "kartik-v/yii2-widget-select2": "^2.1@dev",
+        "kartik-v/yii2-icons": "^1.4@dev"
+    },
+    "authors": [
+        {
+            "name": "wodrow-ys-pc",
+            "email": "wodrow451611cv@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
