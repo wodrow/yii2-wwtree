@@ -2,6 +2,11 @@
 
 ### 使用方式
 
+#### 安装
+```html
+composer require wodrow/yii2-wwtree dev-master
+```
+
 ##### 模型
 ```html
 public function behaviors()
