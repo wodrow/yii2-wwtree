@@ -41,7 +41,7 @@ class Loop extends Validator
             $bool = $this->validateSearch($search, $parent);
         }
         if ($bool){
-            $this->addError($model, $attribute, $attribute . '产生回环');
+            $this->addError($model, $attribute, $attribute . \Yii::t('app', "产生回环"));
         }
     }
 
