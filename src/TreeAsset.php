@@ -13,7 +13,7 @@ use yii\web\AssetBundle;
 
 class TreeAsset extends AssetBundle
 {
-    public $sourcePath = '@vendor/wodrow/yii2wwtree/static';
+    public $sourcePath = '@vendor/wodrow/yii2wwtree/src/static';
 
     public function init()
     {
