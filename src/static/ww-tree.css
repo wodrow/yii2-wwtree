@@ -1,0 +1,34 @@
+.ww-tree{}
+.ww-tree .panel-body{
+}
+.ww-tree .ww-tree-ls{
+    min-height: 480px;
+    max-height: 480px;
+    overflow: auto;
+}
+.ww-tree ul{
+    padding: 0;
+    display: inline;
+    white-space: nowrap;
+}
+.ww-tree li{
+    padding: 0;
+    margin-left: 0.5em;
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+    line-height: 1;
+    list-style: none;
+}
+.ww-tree li.active{
+    background: #999;
+}
+.ww-tree li:hover{
+    background: #ccc;
+}
+.ww-tree .ww-ns{
+    background: #fff;
+    color: #000;
+}
+.ww-tree .input-group-addon{
+    padding: 0;
+}
