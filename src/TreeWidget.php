@@ -13,7 +13,7 @@ use yii\helpers\Url;
 use yii\base\Widget;
 use yii\base\Model;
 
-class Tree extends Widget
+class TreeWidget extends Widget
 {
     public $treeModelClass;
     public $custom_field_view = '_form-node-custom';

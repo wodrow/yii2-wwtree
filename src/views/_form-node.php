@@ -46,7 +46,7 @@ use yii\helpers\ArrayHelper;
         <div class="row">
             <div class="col-xs-6">
                 <?=$form->field($node, 'pid')->widget(Select2::class, [
-                        'data' => ArrayHelper::map($node::find()->select(['id', 'name'])->all(), 'id', 'name'),
+                    'data' => ArrayHelper::merge(['' => "根节点"], ArrayHelper::map($node::find()->select(['id', 'name'])->all(), 'id', 'name')),
                 ]) ?>
             </div>
             <div class="col-xs-6">
