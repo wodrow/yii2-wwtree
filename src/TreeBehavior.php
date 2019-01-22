@@ -127,7 +127,7 @@ class TreeBehavior extends Behavior
             $this->afMove();
             $parent = $owner::find()->where(['id' => $owner->pid])->one();
             $owner->pid = $parent->pid;
-            $this->append();
+            $this->append(true);
             \Yii::$app->session->addFlash("success", \Yii::t('app', "左移成功"));
             $url = Url::to(['/'.\Yii::$app->controller->route, 'id' => $owner->id]);
             \Yii::$app->response->redirect($url)->send();
@@ -149,7 +149,7 @@ class TreeBehavior extends Behavior
             $this->afMove();
             $up = $owner::find()->where(['pid' => $owner->pid])->andWhere(['<', 'sort', $owner->sort])->orderBy(['sort' => SORT_DESC])->one();
             $owner->pid = $up->id;
-            $this->append();
+            $this->append(true);
             \Yii::$app->session->addFlash("success", \Yii::t('app', "右移成功"));
             $url = Url::to(['/'.\Yii::$app->controller->route, 'id' => $owner->id]);
             \Yii::$app->response->redirect($url)->send();
