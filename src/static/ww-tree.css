@@ -22,6 +22,9 @@
 .ww-tree li.active{
     background: #999;
 }
+.ww-tree li.ww-add-for{
+    background: #aaa;
+}
 .ww-tree li:hover{
     background: #ccc;
 }

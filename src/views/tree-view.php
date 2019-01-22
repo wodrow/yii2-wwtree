@@ -27,8 +27,12 @@ use kartik\icons\Icon;
             if ($v['id'] == Yii::$app->request->get('id')){
                 $active = 1;
             }
+            $add_for = 0;
+            if ($v['id'] == Yii::$app->request->get('add-for')){
+                $add_for = 1;
+            }
         ?>
-        <?=Html::a(Html::tag('li', Html::tag('span', $ns, ['class' => "ww-ns"]).Icon::show($v['icon'], ['style' => ['color' => $v['icon_color']]]).$v['name'], ['class' => $active?"active":""]), ["/".Yii::$app->controller->route, 'id'=>$v['id']]) ?>
+        <?=Html::a(Html::tag('li', Html::tag('span', $ns, ['class' => "ww-ns"]).Icon::show($v['icon'], ['style' => ['color' => $v['icon_color']]]).$v['name'], ['class' => ($active?"active ":" ").($add_for?"ww-add-for":"")]), ["/".Yii::$app->controller->route, 'id'=>$v['id']]) ?>
         <?php if (isset($v['_child'])): ?>
             <?=$this->render('tree-view', ['tree' => $v['_child'], 'node' => $node]) ?>
         <?php endif; ?>
