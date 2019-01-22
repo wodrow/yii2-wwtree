@@ -20,7 +20,7 @@ public function behaviors()
 
 public function rules()
 {
-    $r = parent::rules();
+    $r = parent::rules(); // 请定义你自己的rules规则
     $rules = [
         ['pid', \wodrow\yii2wwtree\Loop::class],
     ];
