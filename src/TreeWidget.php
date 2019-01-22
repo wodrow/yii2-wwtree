@@ -82,9 +82,9 @@ class TreeWidget extends Widget
         }else{
             $this->list = $modelClass::find()->orderBy(['sort' => SORT_ASC])->asArray()->all();
         }
-        $this->tree = \common\members\wodrow\tools\Tree::list2tree($this->list, null);
-        \common\members\wodrow\tools\Tree::get_tree_node_sort($this->tree);
-        \common\members\wodrow\tools\Tree::getPreStyle($this->tree);
+        $this->tree = TreeTools::list2tree($this->list, null);
+        TreeTools::get_tree_node_sort($this->tree);
+        TreeTools::getPreStyle($this->tree);
         $this->formSearch = $node_search_form;
 
         $this->node = new $modelClass();
