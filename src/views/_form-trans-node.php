@@ -13,7 +13,7 @@
  */
 use kartik\form\ActiveForm;
 use yii\helpers\Html;
-use common\members\wodrow\widgets\tree\FormTransNode;
+use wodrow\yii2wwtree\FormTransNode;
 use kartik\widgets\Select2;
 use yii\helpers\ArrayHelper;
 ?>
