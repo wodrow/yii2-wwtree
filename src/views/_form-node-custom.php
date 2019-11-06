@@ -18,4 +18,12 @@ $iconColorKey = $node->iconColorKeyAttribute;
 $sortKey = $node->sortKeyAttribute;
 ?>
 
-<?= \Yii::t('app', "请配置你自己的扩展字段视图位置") ?>
+<p>
+    当前扩展视图位置在
+</p>
+<p>
+    <code><?=__FILE__ ?></code>,
+</p>
+<p>
+    <?= \Yii::t('app', "你可以在custom_field_view配置扩展字段视图位置") ?>
+</p>
