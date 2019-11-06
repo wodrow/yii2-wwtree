@@ -116,7 +116,7 @@ class TreeWidget extends Widget
         if (\Yii::$app->request->get('delete-for')){
             $this->node = $modelClass::findOne(\Yii::$app->request->get('delete-for'));
             if (!$this->node->delete()){
-                \Yii::$app->session->addFlash("error", \common\members\wodrow\tools\Model::getModelError($this->node));
+                \Yii::$app->session->addFlash("error", \wodrow\yii2wtools\tools\Model::getModelError($this->node));
             }else{
                 \Yii::$app->session->addFlash("success", "删除成功");
                 $url = Url::to(['/'.\Yii::$app->controller->route]);
@@ -148,7 +148,7 @@ class TreeWidget extends Widget
                 $this->node->append(false);
             }
             if (!$this->node->save()){
-                \Yii::$app->session->addFlash("error", \common\members\wodrow\tools\Model::getModelError($this->node));
+                \Yii::$app->session->addFlash("error", \wodrow\yii2wtools\tools\Model::getModelError($this->node));
             }else{
                 \Yii::$app->session->addFlash("success", "保存成功");
                 $url = Url::to(['/'.\Yii::$app->controller->route, 'id' => $this->node->id]);
