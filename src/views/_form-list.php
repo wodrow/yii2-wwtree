@@ -8,11 +8,10 @@
 /**
  * @var \yii\web\View $this
  * @var array $tree
- * @var \yii\base\Model $node
+ * @var \yii\db\ActiveRecord|\wodrow\yii2wwtree\TreeBehavior $node
  * @var FormSearch $node_search_form
  */
-use mootensai\components\JsBlock;
-use common\members\wodrow\widgets\tree\FormSearch;
+use wodrow\yii2wtools\tools\JsBlock;
 ?>
 
 <div class="panel panel-primary">
@@ -38,11 +37,6 @@ use common\members\wodrow\widgets\tree\FormSearch;
 
 <?php JsBlock::begin(); ?>
     <script>
-        $(document).ready(function(){
-            var node_id = "<?=$node->id ?>";
-            if (node_id){
-                scrollToLocation($('.ww-tree-ls'), 'li.active');
-            }
-        });
+        $(document).ready(function(){});
     </script>
 <?php JsBlock::end(); ?>

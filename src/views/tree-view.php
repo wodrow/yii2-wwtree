@@ -8,10 +8,17 @@
 /**
  * @var \yii\web\View $this
  * @var array $tree
- * @var \yii\base\Model $node
+ * @var \yii\db\ActiveRecord|\wodrow\yii2wwtree\TreeBehavior $node
  */
 use yii\helpers\Html;
 use kartik\icons\Icon;
+
+$primaryKey = $node->primaryKeyAttribute;
+$parentKey = $node->parentKeyAttribute;
+$nameKey = $node->nameKeyAttribute;
+$iconKey = $node->iconKeyAttribute;
+$iconColorKey = $node->iconColorKeyAttribute;
+$sortKey = $node->sortKeyAttribute;
 ?>
 
 <ul>
@@ -24,15 +31,15 @@ use kartik\icons\Icon;
                 if ($v1 == 2)$ns .= "|_&nbsp";
             }
             $active = 0;
-            if ($v['id'] == Yii::$app->request->get('id')){
+            if ($v[$primaryKey] == Yii::$app->request->get('id')){
                 $active = 1;
             }
             $add_for = 0;
-            if ($v['id'] == Yii::$app->request->get('add-for')){
+            if ($v[$primaryKey] == Yii::$app->request->get('add-for')){
                 $add_for = 1;
             }
         ?>
-        <?=Html::a(Html::tag('li', Html::tag('span', $ns, ['class' => "ww-ns"]).Icon::show($v['icon'], ['style' => ['color' => $v['icon_color']]]).$v['name'], ['class' => ($active?"active ":" ").($add_for?"ww-add-for":"")]), ["/".Yii::$app->controller->route, 'id'=>$v['id']]) ?>
+        <?=Html::a(Html::tag('li', Html::tag('span', $ns, ['class' => "ww-ns"]).Icon::show($v[$iconKey], ['style' => ['color' => $v[$iconColorKey]]]).$v[$nameKey], ['class' => ($active?"active ":" ").($add_for?"ww-add-for":"")]), ["/".Yii::$app->controller->route, 'id'=>$v[$primaryKey]]) ?>
         <?php if (isset($v['_child'])): ?>
             <?=$this->render('tree-view', ['tree' => $v['_child'], 'node' => $node]) ?>
         <?php endif; ?>

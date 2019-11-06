@@ -17,41 +17,6 @@ public function behaviors()
         ],
     ];
 }
-
-public function rules()
-{
-    $r = parent::rules(); // 请定义你自己的rules规则
-    $rules = [
-        ['pid', \wodrow\yii2wwtree\Loop::class],
-    ];
-    $rules = ArrayHelper::merge($r, $rules);
-    return $rules;
-}
-
-/**
- * @return \yii\db\ActiveQuery
- */
-public function getP()
-{
-    return $this->hasOne(self::class, ['id' => 'pid']);
-}
-
-/**
- * @return \yii\db\ActiveQuery
- */
-public function getChilds()
-{
-    return $this->hasMany(self::class, ['pid' => 'id']);
-}
-
-public function afterDelete()
-{
-    parent::afterDelete();
-    $this->afMove();
-    foreach ($this->childs as $k => $v) {
-        $v->delete();
-    }
-}
 ```
 
 ##### 视图

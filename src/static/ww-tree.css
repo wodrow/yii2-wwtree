@@ -20,13 +20,14 @@
     list-style: none;
 }
 .ww-tree li.active{
-    background: #999;
+    font-weight: bold;
 }
 .ww-tree li.ww-add-for{
-    background: #aaa;
+    font-weight: bold;
+    font-style: italic;
 }
 .ww-tree li:hover{
-    background: #ccc;
+    font-weight: lighter;
 }
 .ww-tree .ww-ns{
     background: #fff;

@@ -9,6 +9,7 @@
 namespace wodrow\yii2wwtree;
 
 
+use yii\db\ActiveRecord;
 use yii\helpers\Url;
 use yii\base\Model;
 
@@ -39,14 +40,21 @@ class FormTransNode extends Model
         ];
     }
 
-    public function doTrans()
+    public function doTrans($primaryKey, $parentKey, $sortKey)
     {
         $class = $this->modelClass;
-        $sl = $class::find()->where(['id' => $this->slid])->one();
-        $tn = $class::find()->where(['id' => $this->tnid])->one();
-        \common\members\wodrow\tools\Model::switchPlaceModelValue($sl, $tn, ['id', 'pid', 'sort']);
-        \Yii::$app->session->addFlash("success", \Yii::t('app', "交换位置成功"));
-        $url = Url::to(['/'.\Yii::$app->controller->route, 'id' => $tn->id]);
+        /**
+         * @var ActiveRecord $sl
+         * @var ActiveRecord $tn
+         */
+        $sl = $class::findOne([$primaryKey => $this->slid]);
+        $tn = $class::findOne([$primaryKey => $this->tnid]);
+        if (TreeTools::switchNodes($sl, $tn, $primaryKey, $parentKey, $sortKey)){
+            \Yii::$app->session->addFlash("success", \Yii::t('app', "交换位置成功"));
+        }else{
+            \Yii::$app->session->addFlash("error", \Yii::t('app', "交换位置失败"));
+        }
+        $url = Url::to(['/'.\Yii::$app->controller->route, 'id' => $tn->$primaryKey]);
         \Yii::$app->response->redirect($url)->send();
         exit;
     }

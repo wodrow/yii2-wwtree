@@ -9,14 +9,14 @@
 /**
  * @var \yii\web\View $this
  * @var array $tree
- * @var \yii\base\Model $node
+ * @var \yii\db\ActiveRecord|\wodrow\yii2wwtree\TreeBehavior $node
  * @var FormSearch $node_search_form
  */
 
 use kartik\form\ActiveForm;
 use yii\helpers\Html;
 use kartik\icons\Icon;
-use common\members\wodrow\widgets\tree\FormSearch;
+use wodrow\yii2wwtree\FormSearch;
 
 ?>
 

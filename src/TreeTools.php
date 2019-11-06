@@ -9,6 +9,9 @@
 namespace wodrow\yii2wwtree;
 
 
+use wodrow\yii2wtools\tools\Model;
+use yii\db\ActiveRecord;
+use yii\db\Exception;
 use yii\helpers\ArrayHelper;
 
 class TreeTools extends ArrayHelper
@@ -173,6 +176,34 @@ class TreeTools extends ArrayHelper
                 }
                 self::getPreStyle($tree[$k][$child_name], $styles_key, $styles, $child_name, $sort_name);
             }
+        }
+    }
+
+    /**
+     * @param ActiveRecord $sl
+     * @param ActiveRecord $tn
+     * @param $arr
+     */
+    public static function switchNodes($sl, $tn, $primaryKey, $parentKey, $sortKey)
+    {
+        $fields = array_keys($sl->getAttributes());
+        foreach ($fields as $k => $v){
+            if ($v == $primaryKey)continue;
+            if ($v == $parentKey)continue;
+            if ($v == $sortKey)continue;
+            $t = $sl->$v;
+            $sl->$v = $tn->$v;
+            $tn->$v = $t;
+        }
+        $db = $sl->db;
+        $trans = $db->beginTransaction();
+        try{
+            $sl->save();
+            $tn->save();
+            $trans->commit();
+            return true;
+        }catch (Exception $e){
+            throw $e;
         }
     }
 }
