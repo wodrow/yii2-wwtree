@@ -10,10 +10,11 @@
     "type": "yii2-extension",
     "require": {
         "php": ">=5.4",
-        "mootensai/yii2-jsblock": "1.0.0",
-        "kartik-v/yii2-widget-activeform": "^1.5",
-        "kartik-v/yii2-widget-select2": "^2.1",
-        "kartik-v/yii2-icons": "^1.4"
+        "wodrow/yii2wtools": "^0.1.15",
+        "kartik-v/yii2-widget-activeform": "^1.5.8",
+        "kartik-v/yii2-widget-select2": "^2.1.6",
+        "kartik-v/yii2-icons": "^1.4.5",
+        "kartik-v/yii2-widget-colorinput": "^1.0.5"
     },
     "authors": [
         {

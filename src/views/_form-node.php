@@ -12,7 +12,7 @@
  */
 use kartik\form\ActiveForm;
 use yii\helpers\Html;
-use kartik\widgets\Select2;
+use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 ?>
 
@@ -32,7 +32,7 @@ use yii\helpers\ArrayHelper;
         $label .= \Yii::t('app', "节点");
         echo $label;
         ?>
-    </div>
+    </div>kartik-v
     <div class="panel-body">
         <div class="row">
             <div class="col-xs-6">

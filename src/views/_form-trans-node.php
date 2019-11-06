@@ -14,7 +14,7 @@
 use kartik\form\ActiveForm;
 use yii\helpers\Html;
 use wodrow\yii2wwtree\FormTransNode;
-use kartik\widgets\Select2;
+use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 ?>
 
