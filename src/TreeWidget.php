@@ -143,10 +143,10 @@ class TreeWidget extends Widget
                                 $v->$sortKey --;
                                 $v->save();
                             }
-                            $node->append();
+                            $node->append(false);
                         }
                     }else{
-                        $node->append();
+                        $node->append(false);
                     }
                     $node->save();
                     $trans->commit();
