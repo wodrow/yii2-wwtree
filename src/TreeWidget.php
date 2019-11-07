@@ -16,6 +16,7 @@ use yii\base\Widget;
 class TreeWidget extends Widget
 {
     public $treeModelClass;
+    public $ajaxUrl;
     public $custom_field_view = '_form-node-custom';
 
     public $default_icon = "folder-open";
@@ -94,6 +95,7 @@ class TreeWidget extends Widget
             'trans_node_form' => $this->formTransNode,
             'node_search_form' => $this->formSearch,
             'custom_field_view' => $this->custom_field_view,
+            'ajaxUrl' => $this->ajaxUrl,
         ]);
     }
 
@@ -146,6 +148,7 @@ class TreeWidget extends Widget
                     }else{
                         $node->append();
                     }
+                    $node->save();
                     $trans->commit();
                     \Yii::$app->session->addFlash("success", "保存成功");
                     $url = Url::to(['/'.\Yii::$app->controller->route, 'id' => $node->$primaryKey]);
@@ -170,29 +173,41 @@ class TreeWidget extends Widget
         $node_search_form = new FormSearch();
         if ($node_search_form->load(\Yii::$app->request->get())&&$node_search_form->validate()){
             $key = $node_search_form->key;
-            /**
-             * @var ActiveRecord[] $a
-             */
-            $a = $modelClass::find()->orderBy([$sortKey => SORT_ASC])->where(['like', $nameKey, $key])->all();
-            $ids = [];
-            foreach ($a as $k => $v){
-                $ids[] = $v->$primaryKey;
-                $arr = [];
-                self::makePnodes($v, $arr);
-                foreach ($arr as $k1 => $v1){
-                    if (!in_array($v1->$primaryKey, $ids)){
-                        $ids[] = $v1->$primaryKey;
-                        $a[] = $v1;
+            \Yii::$app->cache->delete($this->treeModelClass."_search_list_{$key}");
+            $list = \Yii::$app->cache->get($this->treeModelClass."_search_list_{$key}");
+            if (!$list){
+                /**
+                 * @var ActiveRecord[] $a
+                 */
+                $a = $modelClass::find()->orderBy([$sortKey => SORT_ASC])->where(['like', $nameKey, $key])->all();
+                $ids = [];
+                foreach ($a as $k => $v){
+                    $ids[] = $v->$primaryKey;
+                    $arr = [];
+                    self::makePnodes($v, $arr);
+                    foreach ($arr as $k1 => $v1){
+                        if (!in_array($v1->$primaryKey, $ids)){
+                            $ids[] = $v1->$primaryKey;
+                            $a[] = $v1;
+                        }
                     }
                 }
+                foreach ($a as $k => $v){
+                    $a[$k]->$nameKey = str_replace($key, "<b>".$key."</b>", $a[$k]->$nameKey);
+                    $a[$k] = $a[$k]->toArray();
+                }
+                $list = $a;
+                \Yii::$app->cache->set($this->treeModelClass."_search_list_{$key}", $list, 3600);
             }
-            foreach ($a as $k => $v){
-                $a[$k]->$nameKey = str_replace($key, "<b>".$key."</b>", $a[$k]->$nameKey);
-                $a[$k] = $a[$k]->toArray();
-            }
-            $this->list = $a;
+            $this->list = $list;
         }else{
-            $this->list = $modelClass::find()->orderBy([$sortKey => SORT_ASC])->asArray()->all();
+            \Yii::$app->cache->delete($this->treeModelClass."_all_list");
+            $list = \Yii::$app->cache->get($this->treeModelClass."_all_list");
+            if (!$list){
+                $list = $modelClass::find()->orderBy([$sortKey => SORT_ASC])->asArray()->all();
+                \Yii::$app->cache->set($this->treeModelClass."_all_list", $list, 3600);
+            }
+            $this->list = $list;
         }
         $this->formSearch = $node_search_form;
     }
@@ -218,6 +233,9 @@ class TreeWidget extends Widget
         $modelClass = $this->treeModelClass;
         $primaryKey = $this->node->primaryKeyAttribute;
         if (\Yii::$app->request->get('id')){
+            /**
+             * @var ActiveRecord|TreeBehavior $node
+             */
             $node = $modelClass::findOne([$primaryKey => \Yii::$app->request->get('id')]);
             switch (\Yii::$app->request->get('sort_action')){
                 case "up":

@@ -39,7 +39,7 @@ $sortKey = $node->sortKeyAttribute;
                 $add_for = 1;
             }
         ?>
-        <?=Html::a(Html::tag('li', Html::tag('span', $ns, ['class' => "ww-ns"]).Icon::show($v[$iconKey], ['style' => ['color' => $v[$iconColorKey]]]).$v[$nameKey], ['class' => ($active?"active ":" ").($add_for?"ww-add-for":"")]), ["/".Yii::$app->controller->route, 'id'=>$v[$primaryKey]]) ?>
+        <?=Html::a(Html::tag('li', Html::tag('span', $ns, ['class' => "ww-ns"]).Icon::show($v[$iconKey], ['style' => ['color' => $v[$iconColorKey]]]).Html::tag('span',$v[$nameKey], ['class' => "text"]), ['class' => ($active?"active ":" ").($add_for?"ww-add-for":"")]), ["/".Yii::$app->controller->route, 'id'=>$v[$primaryKey]]) ?>
         <?php if (isset($v['_child'])): ?>
             <?=$this->render('tree-view', ['tree' => $v['_child'], 'node' => $node]) ?>
         <?php endif; ?>

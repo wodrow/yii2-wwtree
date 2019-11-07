@@ -9,11 +9,11 @@
  * @var \yii\web\View $this
  * @var array $tree
  * @var \yii\db\ActiveRecord|\wodrow\yii2wwtree\TreeBehavior $node
+ * @var string $ajaxUrl
  */
 use kartik\form\ActiveForm;
 use yii\helpers\Html;
 use kartik\select2\Select2;
-use yii\helpers\ArrayHelper;
 
 $primaryKey = $node->primaryKeyAttribute;
 $parentKey = $node->parentKeyAttribute;
@@ -21,6 +21,7 @@ $nameKey = $node->nameKeyAttribute;
 $iconKey = $node->iconKeyAttribute;
 $iconColorKey = $node->iconColorKeyAttribute;
 $sortKey = $node->sortKeyAttribute;
+$select2Config = \wodrow\yii2wwtree\SearchAction::getSelect2Config($node, $primaryKey, $parentKey, $nameKey, $ajaxUrl);
 ?>
 
 <?php $form = ActiveForm::begin(); ?>
@@ -52,9 +53,7 @@ $sortKey = $node->sortKeyAttribute;
         </div>
         <div class="row">
             <div class="col-xs-6">
-                <?=$form->field($node, $parentKey)->widget(Select2::class, [
-                    'data' => ArrayHelper::merge(['' => "根节点"], ArrayHelper::map($node::find()->select([$primaryKey, $nameKey])->all(), $primaryKey, $nameKey)),
-                ]) ?>
+                <?=$form->field($node, $parentKey)->widget(Select2::class, $select2Config) ?>
             </div>
             <div class="col-xs-6">
                 <?=$form->field($node, $iconColorKey)->widget(\kartik\color\ColorInput::class) ?>

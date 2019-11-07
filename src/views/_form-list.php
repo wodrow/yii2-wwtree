@@ -9,9 +9,17 @@
  * @var \yii\web\View $this
  * @var array $tree
  * @var \yii\db\ActiveRecord|\wodrow\yii2wwtree\TreeBehavior $node
- * @var FormSearch $node_search_form
+ * @var \wodrow\yii2wwtree\FormSearch $node_search_form
  */
+$primaryKey = $node->primaryKeyAttribute;
+$parentKey = $node->parentKeyAttribute;
+$nameKey = $node->nameKeyAttribute;
+$iconKey = $node->iconKeyAttribute;
+$iconColorKey = $node->iconColorKeyAttribute;
+$sortKey = $node->sortKeyAttribute;
+
 use wodrow\yii2wtools\tools\JsBlock;
+
 ?>
 
 <div class="panel panel-primary">
@@ -37,6 +45,16 @@ use wodrow\yii2wtools\tools\JsBlock;
 
 <?php JsBlock::begin(); ?>
     <script>
-        $(document).ready(function(){});
+        $(document).ready(function(){
+            let node_id = "<?=$node->$primaryKey ?>";
+            if (node_id){
+                let mainContainer = $('.ww-tree-ls'),
+                scrollToContainer = mainContainer.find('li.active');
+                mainContainer.animate({
+                    scrollTop: scrollToContainer.offset().top - mainContainer.offset().top + mainContainer.scrollTop(),
+                    scrollLeft: scrollToContainer.offset().left - mainContainer.offset().left + mainContainer.scrollLeft()
+                }, 2000);
+            }
+        });
     </script>
 <?php JsBlock::end(); ?>
