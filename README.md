@@ -30,12 +30,30 @@ public function behaviors()
 <?=wodrow\yii2wwtree\TreeWidget::widget([
     'treeModelClass' => "your model class",
     // 'custom_field_view' => "@your/extend/view",
+    // 'ajaxUrl' => "",
 ]) ?>
 ```
 
 ### 注意
 ```html
-数据表必须要有id, pid(父级), name, sort, icon, icon_color这六个字段，字段名可以是TreeBehavior配置的字段名，其他字段根据需要自己添加, 在custom_field_view视图里可以处理添加的字段，使用它生成的模型
+数据表必须要有id, pid(父级), name, sort, icon, icon_color这六个字段，字段名可以是TreeBehavior配置的字段名;
+其他字段根据需要自己添加, 在custom_field_view视图里可以处理添加的字段，使用它生成的模型。
+
+如果使用ajaxUrl，推荐在控制器添加actions
+
+public function actions()
+{
+    return [
+        ...,
+        'to-your-ajax-url' => [
+            'class' => \wodrow\yii2wwtree\SearchAction::class,
+            'searchClass' => TestTree::class,
+            'idKeyAttr' => 'your id field key',
+            'textKeyAttr' => 'your text field key',
+        ],
+    ];
+}
+
 ```
 
 ### 截图
