@@ -181,22 +181,26 @@ class TreeWidget extends Widget
                  */
                 $a = $modelClass::find()->orderBy([$sortKey => SORT_ASC])->where(['like', $nameKey, $key])->all();
                 $ids = [];
+                $_list = [];
                 foreach ($a as $k => $v){
-                    $ids[] = $v->$primaryKey;
-                    $arr = [];
-                    self::makePnodes($v, $arr);
-                    foreach ($arr as $k1 => $v1){
-                        if (!in_array($v1->$primaryKey, $ids)){
-                            $ids[] = $v1->$primaryKey;
-                            $a[] = $v1;
+                    if (!in_array($v->$primaryKey, $ids)){
+                        $ids[] = $v->$primaryKey;
+                        $_list[] = $v;
+                        $arr = [];
+                        self::makePnodes($v, $arr);
+                        foreach ($arr as $k1 => $v1){
+                            if (!in_array($v1->$primaryKey, $ids)){
+                                $ids[] = $v1->$primaryKey;
+                                $_list[] = $v1;
+                            }
                         }
                     }
                 }
-                foreach ($a as $k => $v){
-                    $a[$k]->$nameKey = str_replace($key, "<b>".$key."</b>", $a[$k]->$nameKey);
-                    $a[$k] = $a[$k]->toArray();
+                foreach ($_list as $k => $v){
+                    $_list[$k]->$nameKey = str_replace($key, "<b>".$key."</b>", $_list[$k]->$nameKey);
+                    $_list[$k] = $_list[$k]->toArray();
                 }
-                $list = $a;
+                $list = $_list;
                 \Yii::$app->cache->set($this->treeModelClass."_search_list_{$key}", $list, 3600);
             }
             $this->list = $list;
