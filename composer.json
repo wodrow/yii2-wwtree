@@ -10,7 +10,7 @@
     "type": "yii2-extension",
     "require": {
         "php": ">=7.1",
-        "wodrow/yii2wtools": "^0.1.18",
+        "wodrow/yii2wtools": "^1.0.0",
         "kartik-v/yii2-widget-activeform": "^1.5.8",
         "kartik-v/yii2-widget-select2": "^2.1.6",
         "kartik-v/yii2-icons": "^1.4.5",
